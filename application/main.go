@@ -286,7 +286,7 @@ var (
 	chaincodeName = "assets"
 	org           = "org1"
 	user          = "Admin"
-	//configPath    = "$GOPATH/src/github.com/hyperledger/fabric/imocc/application/config.yaml"
+	//configPath    = "$GOPATH/src/github.com/hyperledger/fabric/yangyuanhao/application/config.yaml"
 	configPath = "./config.yaml"
 )
 
@@ -309,7 +309,7 @@ func manageBlockchain() {
 	}
 
 	// 具体操作
-	cli.SaveChannel(resmgmt.SaveChannelRequest{}, resmgmt.WithOrdererEndpoint("orderer.imocc.com"), resmgmt.WithTargetEndpoints())
+	cli.SaveChannel(resmgmt.SaveChannelRequest{}, resmgmt.WithOrdererEndpoint("orderer.yangyuanhao.com"), resmgmt.WithTargetEndpoints())
 }
 
 // 区块链数据查询 账本的查询
@@ -321,7 +321,7 @@ func queryBlockchain() {
 		panic(err)
 	}
 
-	resp, err := cli.QueryInfo(ledger.WithTargetEndpoints("peer0.org1.imocc.com"))
+	resp, err := cli.QueryInfo(ledger.WithTargetEndpoints("peer0.org1.yangyuanhao.com"))
 	if err != nil {
 		panic(err)
 	}
@@ -351,7 +351,7 @@ func channelExecute(fcn string, args [][]byte) (channel.Response, error) {
 		ChaincodeID: chaincodeName,
 		Fcn:         fcn,
 		Args:        args,
-	}, channel.WithTargetEndpoints("peer0.org1.imocc.com"))
+	}, channel.WithTargetEndpoints("peer0.org1.yangyuanhao.com"))
 	if err != nil {
 		return channel.Response{}, err
 	}
@@ -420,7 +420,7 @@ func channelQuery(fcn string, args [][]byte) (channel.Response, error) {
 		ChaincodeID: chaincodeName,
 		Fcn:         fcn,
 		Args:        args,
-	}, channel.WithTargetEndpoints("peer0.org1.imocc.com"))
+	}, channel.WithTargetEndpoints("peer0.org1.yangyuanhao.com"))
 }
 
 // 事件监听

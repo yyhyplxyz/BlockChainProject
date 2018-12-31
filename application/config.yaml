@@ -69,7 +69,7 @@ client:
 
   # Root of the MSP directories with keys and certs.
   cryptoconfig:
-    path: ${GOPATH}/src/github.com/hyperledger/fabric/imocc/deploy/crypto-config
+    path: ${GOPATH}/src/github.com/hyperledger/fabric/yangyuanhao/deploy/crypto-config
 
   # Some SDKs support pluggable KV stores, the properties under "credentialStore"
   # are implementation specific
@@ -119,11 +119,11 @@ channels:
     # be "names" of orgs defined under "organizations/peers"
     # deprecated: not recommended, to override any orderer configuration items, entity matchers should be used.
     orderers:
-      - orderer.imocc.com
+      - orderer.yangyuanhao.com
 
     # Required. list of peers from participating orgs
     peers:
-      peer0.org1.imocc.com:
+      peer0.org1.yangyuanhao.com:
         # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
         # have the chaincode installed. The app can also use this property to decide which peers
         # to send the chaincode install request. Default: true
@@ -143,7 +143,7 @@ channels:
         # Default: true
         eventSource: true
 
-      peer1.org1.imocc.com:
+      peer1.org1.yangyuanhao.com:
         # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
         # have the chaincode installed. The app can also use this property to decide which peers
         # to send the chaincode install request. Default: true
@@ -192,11 +192,11 @@ organizations:
     mspid: Org1MSP
 
     # This org's MSP store (absolute path or relative to client.cryptoconfig)
-    cryptoPath:  peerOrganizations/org1.imocc.com/users/{username}@org1.imocc.com/msp
+    cryptoPath:  peerOrganizations/org1.yangyuanhao.com/users/{username}@org1.yangyuanhao.com/msp
 
     peers:
-      - peer0.org1.imocc.com
-      #- peer1.org1.imocc.com
+      - peer0.org1.yangyuanhao.com
+      #- peer1.org1.yangyuanhao.com
 
     # [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based
     # network. Typically certificates provisioning is done in a separate process outside of the
@@ -212,7 +212,7 @@ organizations:
       mspID: "OrdererMSP"
 
       # Needed to load users crypto keys and certs for this org (absolute path or relative to global crypto path, DEV mode)
-      cryptoPath: ordererOrganizations/imocc.com/users/{username}@imocc.com/msp
+      cryptoPath: ordererOrganizations/yangyuanhao.com/users/{username}@yangyuanhao.com/msp
 
 
 #
@@ -221,13 +221,13 @@ organizations:
 # SDK is implementation specific. Consult each SDK's documentation for its handling of orderers.
 #
 orderers:
-  orderer.imocc.com:
+  orderer.yangyuanhao.com:
     url: 127.0.0.1:7050
 
     # these are standard properties defined by the gRPC library
     # they will be passed in as-is to gRPC client constructor
     grpcOptions:
-      ssl-target-name-override: orderer.imocc.com
+      ssl-target-name-override: orderer.yangyuanhao.com
       # These parameters should be set in coordination with the keepalive policy on the server,
       # as incompatible settings can result in closing of connection.
       # When duration of the 'keep-alive-time' is set to 0 or less the keep alive client parameters are disabled
@@ -247,14 +247,14 @@ orderers:
 # and event listener registration.
 #
 peers:
-  peer0.org1.imocc.com:
+  peer0.org1.yangyuanhao.com:
     # this URL is used to send endorsement and query requests
     url: 127.0.0.1:27051
     # eventUrl is only needed when using eventhub (default is delivery service)
     eventUrl: 127.0.0.1:27053
 
     grpcOptions:
-      ssl-target-name-override: peer0.org1.imocc.com
+      ssl-target-name-override: peer0.org1.yangyuanhao.com
       # These parameters should be set in coordination with the keepalive policy on the server,
       # as incompatible settings can result in closing of connection.
       # When duration of the 'keep-alive-time' is set to 0 or less the keep alive client parameters are disabled
@@ -269,14 +269,14 @@ peers:
       # Certificate location absolute path
       path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/${CRYPTOCONFIG_FIXTURES_PATH}/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
-#  peer1.org1.imocc.com:
+#  peer1.org1.yangyuanhao.com:
 #    # this URL is used to send endorsement and query requests
 #    url: 127.0.0.1:37051
 #    # eventUrl is only needed when using eventhub (default is delivery service)
 #    eventUrl: 127.0.0.1:37053
 #
 #    grpcOptions:
-#      ssl-target-name-override: peer1.org1.imocc.com
+#      ssl-target-name-override: peer1.org1.yangyuanhao.com
 #      # These parameters should be set in coordination with the keepalive policy on the server,
 #      # as incompatible settings can result in closing of connection.
 #      # When duration of the 'keep-alive-time' is set to 0 or less the keep alive client parameters are disabled

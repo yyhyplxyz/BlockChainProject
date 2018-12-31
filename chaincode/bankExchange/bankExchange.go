@@ -151,7 +151,7 @@ func userDestroy(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	return shim.Success(nil)
 }
 
-//传入债务ID，债主ID， 借债人ID，借债金额
+//传入债务ID， 借债人ID，借债金额，借债利率
 func LoanEnroll(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	// 套路1：检查参数的个数
 	if len(args) != 4 {
@@ -237,9 +237,6 @@ func LoanEnroll(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
 	return shim.Success(nil)
 }
-
-
-
 
 // 资产登记
 func assetEnroll(stub shim.ChaincodeStubInterface, args []string) pb.Response {
@@ -479,6 +476,27 @@ func queryAsset(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	return shim.Success(assetBytes)
 }
 
+func queryLoan(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	// 套路1：检查参数的个数
+	if len(args) != 1 {
+		return shim.Error("not enough args")
+	}
+
+	// 套路2：验证参数的正确性
+	loanId := args[0]
+	if loanId == "" {
+		return shim.Error("invalid args")
+	}
+
+	// 套路3：验证数据是否存在 应该存在 or 不应该存在
+	loanBytes, err := stub.GetState(constructLoanKey(loanId))
+	if err != nil || len(loanBytes) == 0 {
+		return shim.Error("loan not found")
+	}
+
+	return shim.Success(loanBytes)
+}
+
 // 资产变更历史查询
 func queryAssetHistory(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	// 套路1：检查参数的个数
@@ -551,16 +569,11 @@ func queryAssetHistory(stub shim.ChaincodeStubInterface, args []string) pb.Respo
 	return shim.Success(historiesBytes)
 }
 
-// Init is called during Instantiate transaction after the chaincode container
-// has been established for the first time, allowing the chaincode to
-// initialize its internal data
+
 func (c *AssertsExchangeCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success(nil)
 }
 
-// Invoke is called to update or query the ledger in a proposal transaction.
-// Updated state variables are not committed to the ledger until the
-// transaction is committed.
 func (c *AssertsExchangeCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	funcName, args := stub.GetFunctionAndParameters()
 
@@ -579,11 +592,13 @@ func (c *AssertsExchangeCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 		return queryAsset(stub, args)
 	case "queryAssetHistory":
 		return queryAssetHistory(stub, args)
+	case"LoanEnroll":
+		return LoanEnroll(stub,args)
+	case "queryLoan":
+		return queryLoan(stub,args)
 	default:
 		return shim.Error(fmt.Sprintf("unsupported function: %s", funcName))
 	}
-
-	// stub.SetEvent("name", []byte("data"))
 }
 
 func main() {
