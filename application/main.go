@@ -42,6 +42,8 @@ func main() {
 type UserRegisterRequest struct {
 	Id   string `form:"id" binding:"required"`
 	Name string `form:"name" binding:"required"`
+	Email string `form:"email" binding:"required"`
+	Phone  string `form:"phone" binding:"required"`
 }
 
 // 用户开户
@@ -57,6 +59,8 @@ func userRegister(ctx *gin.Context) {
 	resp, err := channelExecute("userRegister", [][]byte{
 		[]byte(req.Name),
 		[]byte(req.Id),
+		[]byte(req.Email),
+		[]byte(req.Phone),
 	})
 
 	if err != nil {
@@ -374,13 +378,6 @@ func channelExecute(fcn string, args [][]byte) (channel.Response, error) {
 			}
 		}
 
-		// event
-		//eventcli, err := event.New(ctx)
-		//if err != nil {
-		//	return
-		//}
-
-		//eventcli.RegisterChaincodeEvent(chaincodeName, "eventname")
 	}()
 
 	// 交易状态事件监听
