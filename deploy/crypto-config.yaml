@@ -12,9 +12,9 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
   - Name: Orderer # 组织的名字
-    Domain: imocc.com # 域名
+    Domain: yangyuanhao.com # 域名
     Specs: # 定义组织的节点信息
-      - Hostname: orderer # 单个orderer(solo)，节点域名：orderer.imocc.com
+      - Hostname: orderer # 单个orderer(solo)，节点域名：orderer.yangyuanhao.com
       # - Hostname: orderer1
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
@@ -25,7 +25,7 @@ PeerOrgs:
   # Org0 组织0
   # ---------------------------------------------------------------------------
   - Name: Org0
-    Domain: org0.imocc.com
+    Domain: org0.yangyuanhao.com
     # ---------------------------------------------------------------------------
     # "Specs"
     # ---------------------------------------------------------------------------
@@ -60,7 +60,7 @@ PeerOrgs:
     # name collisions
     # ---------------------------------------------------------------------------
     Template: # 使用模板定义peer节点
-      Count: 2 # peer0.org0.imocc.com & peer1.org0.imocc.com
+      Count: 2 # peer0.org0.yangyuanhao.com & peer1.org0.yangyuanhao.com
       # Start: 5 index计数的起始
       # Hostname: {{.Prefix}}{{.Index}} # default
     # ---------------------------------------------------------------------------
@@ -74,10 +74,10 @@ PeerOrgs:
   # Org1 组织1
   # ---------------------------------------------------------------------------
   - Name: Org1
-    Domain: org1.imocc.com
+    Domain: org1.yangyuanhao.com
     Specs:
       - Hostname: peer0
-        #CommonName: cpeer0.org1.imocc.com
+        #CommonName: cpeer0.org1.yangyuanhao.com
       - Hostname: peer1
     Template:
       Count: 1
